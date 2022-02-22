@@ -18,7 +18,7 @@ const contentType = (req: Request, res: Response, next: NextFunction): void => {
 app.use(contentType)
 app.use(bodyParser)
 
-const login = router.post('/login', async (req, res) => {
+const login = router.post('/api/login', async (req, res) => {
   const loginController = new LoginController()
   const data = await loginController.handle(req)
   return res.json(data)
