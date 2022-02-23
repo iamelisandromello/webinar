@@ -24,10 +24,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node -r dotenv/config src/server.ts",
+    "dev": "ts-node -r dotenv/config src/main/server.ts",
     "clean": "rimraf dist",
     "build": "npm run clean && tsc",
-    "start": "node -r dotenv/config dist/server.js"
+    "start": "node -r dotenv/config dist/main/server.js"
   },
   "keywords": [],
   "author": "",

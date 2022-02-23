@@ -11,8 +11,8 @@ export class LoginController {
     const login = await person.search(request.body)
     console.log('Controller Person:', login);
 
-    const loginPostgres = await person.searchPostgres(request.body)
-    console.log('POSTGRESS: ', loginPostgres);
+/*     const loginPostgres = await person.searchPostgres(request.body)
+    console.log('POSTGRESS: ', loginPostgres); */
 
     if (!login) return { statusCode: 401, UnauthorizedRequest: 'Login attempt failed!'}
     if (login) return { statusCode: 200, SUccessdRequest: 'Login success!'}
