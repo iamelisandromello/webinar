@@ -1,6 +1,7 @@
 import { User } from '@/Models/user'
 import { Controller } from '@/presentation/interfaces/controller'
 import { HttpRequest, HttpResponse } from '@/presentation/interfaces/http'
+import { SignIn } from '@/domain/usecases/user/'
 
 export class MissingParamError extends Error {
   constructor (paramName: string) {
@@ -40,6 +41,9 @@ export const serverError = (error: Error): HttpResponse => ({
 })
 
 export class LoginController implements Controller {
+  constructor (
+    private readonly loginService: SignIn
+  ){}
   async handle (request: HttpRequest): Promise<HttpResponse> {
     const { user, password} = request.body
     if (!user) return { statusCode: 404, body: 'Required user field!'}
@@ -51,7 +55,9 @@ export class LoginController implements Controller {
     const login = await person.search(request.body)
     console.log('Controller Mongo:', login);
 
-    const loginPostgres = await person.searchPostgres(request.body)
+    //const loginPostgres = await person.searchPostgres(request.body)
+    const loginPostgres = await this.loginService.sigin(request.body)
+
     console.log('Controller POSTGRESS: ', loginPostgres);
 
     if (!login) return { statusCode: 401, body: {

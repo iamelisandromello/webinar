@@ -1,8 +1,7 @@
 import './config/module-alias'
-import { variables } from './config/variables'
+import { variables } from '@/main/config/variables'
+import app from '@/main/config/app'
 
-import app from './config/app' 
+const port = variables.port
 
-app.listen(variables.port, () => console.log(`Server running at: http:localhost:${variables.port}`))
-
-export default app
+app.listen(port, () => console.log(`Server running at: http:localhost:${port}`))
