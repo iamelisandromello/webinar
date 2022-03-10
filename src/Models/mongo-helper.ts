@@ -13,9 +13,6 @@ export const MongoHelper = {
         global.db = conn.db(nameDatabase)
         global.conn = conn
       })
-      .catch(async (err) => {
-        return Promise.reject(new Error(err))
-      })
   },
 
   async disconnect (): Promise<void> {

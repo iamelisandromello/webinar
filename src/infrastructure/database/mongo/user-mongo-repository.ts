@@ -7,7 +7,6 @@ export class UserRepository implements CheckLoginRepositoryContract {
     const { user, password } = params
     
     const collection = await userCollection.findOne({ user,  password})
-    //console.log('Collection: ', collection);
     return collection && true || false
   }
 }
