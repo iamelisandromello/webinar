@@ -3,7 +3,7 @@ export interface SignIn {
 }
 
 export namespace SignIn {
-  export type Result = boolean
+  export type Result = boolean | null
   export type Params = {
     user: string,
     password: string

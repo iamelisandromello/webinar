@@ -1,7 +1,7 @@
-//import { LoginController} from '../../controllers/login'
 import { adaptRoute } from '@/main/adapters/express-route-adapter'
 import { LoginController} from '@/presentation/controllers/login-controller'
-import { UserRepository } from '@/infrastructure/database/mongo/user-mongo-repository'
+//import { UserRepository } from '@/infrastructure/database/mongo/user-mongo-repository'
+import { UserRepository } from '@/infrastructure/database/postgres/user-postgres-repository'
 import { SignInService } from '@/application/sign-in-service'
 import { Router } from 'express'
 
