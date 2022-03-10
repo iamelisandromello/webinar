@@ -1,4 +1,3 @@
-import { User } from '@/Models/user'
 import { Controller } from '@/presentation/interfaces/controller'
 import { HttpRequest, HttpResponse } from '@/presentation/interfaces/http'
 import { SignIn } from '@/domain/usecases/user/'
@@ -25,6 +24,11 @@ export class ServerError extends Error {
   }
 }
 
+export const unauthorized = (): HttpResponse => ({
+  statusCode: 401,
+  body: new UnauthorizedError()
+})
+
 export const badRequest = (error: Error): HttpResponse => ({
   statusCode: 400,
   body: error
@@ -45,28 +49,21 @@ export class LoginController implements Controller {
     private readonly loginService: SignIn
   ){}
   async handle (request: HttpRequest): Promise<HttpResponse> {
-    const { user, password} = request.body
-    if (!user) return { statusCode: 404, body: 'Required user field!'}
-    if (!password) return { statusCode: 404, body: 'Required password field!'}
-    //if (!user) return badRequest(new MissingParamError('user'))
-    //if (!password) return badRequest(new MissingParamError('password'))
+    try {
+      const { user, password} = request.body
 
-    const person = new User()
-    const login = await person.search(request.body)
-    console.log('Controller Mongo:', login);
-
-    //const loginPostgres = await person.searchPostgres(request.body)
-    const loginPostgres = await this.loginService.sigin(request.body)
-
-    console.log('Controller POSTGRESS: ', loginPostgres);
-
-    if (!login) return { statusCode: 401, body: {
-      message: 'Login attempt failed!'
-    }}
-    //if (!login) return badRequest(new UnauthorizedError())
-    return { statusCode: 200, body: {
-      message: 'Login success!'
-    }}
-    //return success({message: 'Login success!'})
+      if (!user) return badRequest(new MissingParamError('user'))
+      if (!password) return badRequest(new MissingParamError('password'))
+  
+      const login = await this.loginService.sigin(request.body)
+  
+      console.log('Controller return service auth: ', login);
+  
+      if (!login) return unauthorized()
+  
+      return success({message: 'Login success!'}) 
+    } catch (error: any) {
+      return serverError(error)
+    }
   }  
 }

@@ -8,6 +8,8 @@ export class SignInService implements SignIn {
 
   async sigin (params: SignIn.Params): Promise<SignIn.Result> {
     const verify = await this.loginUser.verify(params)
+
+    if(!verify) return null
     return verify
   }
 }
