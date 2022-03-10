@@ -13,8 +13,6 @@ export async function PostgresHelper() {
 
   const client = await pool.connect();
 
-/*   const res = await client.query('SELECT NOW()');
-  console.log(res.rows[0]); */
   client.release();
 
   global.connection = pool;
