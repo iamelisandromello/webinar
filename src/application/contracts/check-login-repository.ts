@@ -3,9 +3,10 @@ export interface CheckLoginRepositoryContract {
 }
 
 export namespace CheckLoginRepositoryContract {
-  export type Result = boolean
   export type Params = {
     user: string,
     password:string
   }
+
+  export type Result = boolean
 }

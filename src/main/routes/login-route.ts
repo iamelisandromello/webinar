@@ -1,15 +1,7 @@
-//import { LoginController} from '../../controllers/login'
 import { adaptRoute } from '@/main/adapters/express-route-adapter'
-import { LoginController} from '@/presentation/controllers/login-controller'
-import { UserRepository } from '@/infrastructure/database/mongo/user-mongo-repository'
-import { SignInService } from '@/application/sign-in-service'
-import { Router } from 'express'
+import { makeLoginController } from '@/main/factories/controllers'
 
-const makeLoginController = (() => {
-  const userRepository = new UserRepository()
-  const siginService = new SignInService(userRepository)
-  return new LoginController(siginService)
-})
+import { Router } from 'express'
 
 export default (router: Router): void => {
   router.post('/login', adaptRoute(makeLoginController()))

@@ -1,14 +1,17 @@
 import { PropertiesGlobal } from '@/main/config/global'
+import { variables } from '@/main/config/variables'
 
 declare const global: PropertiesGlobal
 
 export async function PostgresHelper() {
+  const pathString: string = variables.postgresUrl
+
   if (global.connection)
       return global.connection.connect();
 
   const { Pool } = require('pg');
   const pool = new Pool({
-      connectionString: 'postgres://citizix_user:S3cret@localhost:5432/postgres'
+      connectionString: pathString
   });
 
   const client = await pool.connect();
